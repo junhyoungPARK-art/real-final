@@ -1,3 +1,4 @@
+나의 말:
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -469,11 +470,11 @@
         let currentActor = null; // 현재 선택된 배우 객체를 저장 (서버에서 가져온 데이터)
 
         // --- 초기 서버 데이터 주입 함수 (개발 시 한 번만 실행) ---
-        // 이 함수를 실행하려면 server.js의 `/api/init-data` 라우트가 활성화되어 있어야 합니다.
+        // 이 함수를 실행하려면 server.js의 /api/init-data 라우트가 활성화되어 있어야 합니다.
         async function initializeServerData() {
             try {
                 console.log('서버에 초기 데이터 전송을 시도합니다...');
-                const response = await fetch(`${BASE_URL}/init-data`, {
+                const response = await fetch(${BASE_URL}/init-data, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -523,14 +524,14 @@
             actorsGrid.innerHTML = '<div style="text-align: center; color: #666; font-size: 1.2em; margin: 40px 0;">배우 정보를 불러오는 중...</div>'; 
 
             try {
-                const response = await fetch(`${BASE_URL}/actors/${date}`);
+                const response = await fetch(${BASE_URL}/actors/${date});
                 if (!response.ok) {
                     // 404 Not Found일 경우 (해당 날짜 데이터 없음) 빈 배열로 처리
                     if (response.status === 404) {
                          actorsGrid.innerHTML = '<div class="no-actors">해당 날짜에 출연하는 배우가 없습니다.</div>';
                          return;
                     }
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error(HTTP error! status: ${response.status});
                 }
                 const actors = await response.json(); // 서버에서 배우 목록을 JSON으로 받음
 
@@ -548,14 +549,14 @@
                     actorCard.onclick = () => openModal(actor); 
                     
                     const photoHtml = actor.photo
-                        ? `<img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">`
+                        ? <img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">
                         : actor.name.charAt(0);
 
-                    actorCard.innerHTML = `
+                    actorCard.innerHTML = 
                         <div class="actor-photo">${photoHtml}</div>
                         <div class="actor-name">${actor.name}</div>
                         <div class="actor-role">${actor.role}</div>
-                    `;
+                    ;
                     
                     actorsGrid.appendChild(actorCard);
                 });
@@ -572,7 +573,7 @@
             
             const modalActorPhotoDiv = document.getElementById('modalActorPhoto');
             if (actor.photo) {
-                modalActorPhotoDiv.innerHTML = `<img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">`;
+                modalActorPhotoDiv.innerHTML = <img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">;
             } else {
                 modalActorPhotoDiv.textContent = actor.name.charAt(0);
             }
@@ -623,7 +624,7 @@
             
             try {
                 // 서버의 actorId는 MongoDB의 _id가 됩니다.
-                const response = await fetch(`${BASE_URL}/actors/${currentDate}/${currentActor._id}/messages`, {
+                const response = await fetch(${BASE_URL}/actors/${currentDate}/${currentActor._id}/messages, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -633,7 +634,7 @@
 
                 if (!response.ok) {
                     const errorData = await response.json(); // 서버에서 보낸 오류 메시지 확인
-                    throw new Error(`메시지 전송 실패: ${errorData.message || response.statusText}`);
+                    throw new Error(메시지 전송 실패: ${errorData.message || response.statusText});
                 }
 
                 const addedMessage = await response.json(); // 서버에서 추가된 메시지 객체를 받음
@@ -647,10 +648,10 @@
                 messageInput.value = '';
                 
                 // 성공 메시지
-                alert(`${currentActor.name}님에게 ${authorName}님의 응원 메시지가 전달되었습니다! 💌`);
+                alert(${currentActor.name}님에게 ${authorName}님의 응원 메시지가 전달되었습니다! 💌);
             } catch (error) {
                 console.error('메시지 전송 중 오류 발생:', error);
-                alert(`메시지 전송에 실패했습니다: ${error.message}. 다시 시도해주세요.`);
+                alert(메시지 전송에 실패했습니다: ${error.message}. 다시 시도해주세요.);
             }
         }
         
@@ -671,10 +672,10 @@
             messages.forEach(message => {
                 const messageDiv = document.createElement('div');
                 messageDiv.className = 'message-item';
-                messageDiv.innerHTML = `
+                messageDiv.innerHTML = 
                     <div class="message-author">${message.author}</div>
                     <div class="message-text">${message.text}</div>
-                `;
+                ;
                 messagesDisplay.appendChild(messageDiv);
             });
             
@@ -714,4 +715,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
