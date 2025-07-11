@@ -473,13 +473,9 @@
         async function initializeServerData() {
             try {
                 console.log('서버에 초기 데이터 전송을 시도합니다...');
-                const response = await fetch(`${BASE_URL}/init-data`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(defaultActorsData)
-                });
+                const response = await fetch(`${BASE_URL}/actors/${date}`, {
+    cache: 'no-store' // 캐시 방지 옵션
+});
 
                 if (response.ok) {
                     console.log('서버 데이터 초기화 성공');
