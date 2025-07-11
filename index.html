@@ -1,2114 +1,745 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>UN_CONNECTED 배우 응원 메시지</title>
-
-    <style>
-
-        /* CSS는 변경 없음 */
-
-        * {
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-        }
-
-        
-
-        body {
-
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            min-height: 100vh;
-
-            padding: 20px;
-
-        }
-
-        
-
-        .container {
-
-            max-width: 1200px;
-
-            margin: 0 auto;
-
-            background: white;
-
-            border-radius: 20px;
-
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-
-            overflow: hidden;
-
-        }
-
-        
-
-        .header {
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            color: white;
-
-            padding: 40px;
-
-            text-align: center;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-        
-
-        .header::before {
-
-            content: '';
-
-            position: absolute;
-
-            top: -50%;
-
-            left: -50%;
-
-            width: 200%;
-
-            height: 200%;
-
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-
-            animation: shimmer 3s infinite;
-
-        }
-
-        
-
-        @keyframes shimmer {
-
-            0% { transform: rotate(0deg); }
-
-            100% { transform: rotate(360deg); }
-
-        }
-
-        
-
-        .main-title {
-
-            font-size: 3em;
-
-            font-weight: 700;
-
-            margin-bottom: 15px;
-
-            letter-spacing: -1px;
-
-            position: relative;
-
-            z-index: 1;
-
-        }
-
-        
-
-        .subtitle {
-
-            font-size: 1.3em;
-
-            opacity: 0.9;
-
-            position: relative;
-
-            z-index: 1;
-
-        }
-
-        
-
-        .main-content {
-
-            padding: 40px;
-
-        }
-
-        
-
-        .date-selector {
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 20px;
-
-            margin-bottom: 40px;
-
-            flex-wrap: wrap;
-
-        }
-
-        
-
-        .date-btn {
-
-            padding: 15px 30px;
-
-            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
-
-            border: 2px solid #e0e6ed;
-
-            border-radius: 25px;
-
-            font-size: 1.1em;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-        
-
-        .date-btn.active {
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            color: white;
-
-            border-color: #667eea;
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-
-        }
-
-        
-
-        .date-btn:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
-
-        }
-
-        
-
-        .actors-grid {
-
-            display: grid;
-
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-            gap: 30px;
-
-            margin-bottom: 40px;
-
-        }
-
-        
-
-        .actor-card {
-
-            background: white;
-
-            border-radius: 20px;
-
-            padding: 25px;
-
-            text-align: center;
-
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-            transition: all 0.3s ease;
-
-            cursor: pointer;
-
-            border: 3px solid transparent;
-
-            position: relative;
-
-            overflow: hidden;
-
-        }
-
-        
-
-        .actor-card::before {
-
-            content: '';
-
-            position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            right: 0;
-
-            bottom: 0;
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            opacity: 0;
-
-            transition: opacity 0.3s ease;
-
-            z-index: 1;
-
-        }
-
-        
-
-        .actor-card:hover {
-
-            transform: translateY(-10px);
-
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
-
-            border-color: #667eea;
-
-        }
-
-        
-
-        .actor-card:hover::before {
-
-            opacity: 0.05;
-
-        }
-
-        
-
-        .actor-photo {
-
-            width: 120px;
-
-            height: 120px;
-
-            border-radius: 50%;
-
-            margin: 0 auto 20px;
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 3em;
-
-            color: white;
-
-            position: relative;
-
-            z-index: 2;
-
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-            overflow: hidden; /* 이미지 둥글게 자르기 */
-
-        }
-
-
-
-        .actor-photo img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
-
-        }
-
-        
-
-        .actor-name {
-
-            font-size: 1.5em;
-
-            font-weight: 700;
-
-            margin-bottom: 10px;
-
-            color: #333;
-
-            position: relative;
-
-            z-index: 2;
-
-        }
-
-        
-
-        .actor-role {
-
-            color: #666;
-
-            font-size: 1.1em;
-
-            margin-bottom: 15px;
-
-            position: relative;
-
-            z-index: 2;
-
-        }
-
-        
-
-        .message-modal {
-
-            display: none;
-
-            position: fixed;
-
-            top: 0;
-
-            left: 0;
-
-            width: 100%;
-
-            height: 100%;
-
-            background: rgba(0,0,0,0.7);
-
-            z-index: 1000;
-
-            backdrop-filter: blur(5px);
-
-        }
-
-        
-
-        .modal-content {
-
-            position: absolute;
-
-            top: 50%;
-
-            left: 50%;
-
-            transform: translate(-50%, -50%);
-
-            background: white;
-
-            border-radius: 25px;
-
-            padding: 40px;
-
-            max-width: 500px;
-
-            width: 90%;
-
-            max-height: 80vh;
-
-            overflow-y: auto;
-
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-
-            animation: modalSlideIn 0.3s ease;
-
-        }
-
-        
-
-        @keyframes modalSlideIn {
-
-            from { opacity: 0; transform: translate(-50%, -60%); }
-
-            to { opacity: 1; transform: translate(-50%, -50%); }
-
-        }
-
-        
-
-        .modal-header {
-
-            text-align: center;
-
-            margin-bottom: 30px;
-
-        }
-
-        
-
-        .modal-actor-photo {
-
-            width: 100px;
-
-            height: 100px;
-
-            border-radius: 50%;
-
-            margin: 0 auto 20px;
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            font-size: 2.5em;
-
-            color: white;
-
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-            overflow: hidden; /* 이미지 둥글게 자르기 */
-
-        }
-
-
-
-        .modal-actor-photo img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
-
-        }
-
-        
-
-        .modal-actor-name {
-
-            font-size: 1.8em;
-
-            font-weight: 700;
-
-            margin-bottom: 10px;
-
-            color: #333;
-
-        }
-
-        
-
-        .modal-actor-role {
-
-            color: #666;
-
-            font-size: 1.1em;
-
-        }
-
-        
-
-        .message-input {
-
-            width: 100%;
-
-            padding: 15px 20px;
-
-            border: 2px solid #e0e6ed;
-
-            border-radius: 15px;
-
-            font-size: 1.1em;
-
-            outline: none;
-
-            transition: all 0.3s ease;
-
-            margin-bottom: 20px;
-
-            resize: vertical;
-
-            min-height: 100px;
-
-        }
-
-        
-
-        .message-input:focus {
-
-            border-color: #667eea;
-
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-
-        }
-
-        
-
-        .modal-buttons {
-
-            display: flex;
-
-            gap: 15px;
-
-            justify-content: flex-end;
-
-        }
-
-        
-
-        .modal-btn {
-
-            padding: 12px 25px;
-
-            border: none;
-
-            border-radius: 25px;
-
-            font-size: 1.1em;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: all 0.3s ease;
-
-        }
-
-        
-
-        .send-btn {
-
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-            color: white;
-
-        }
-
-        
-
-        .send-btn:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-
-        }
-
-        
-
-        .cancel-btn {
-
-            background: #f8f9ff;
-
-            color: #666;
-
-            border: 2px solid #e0e6ed;
-
-        }
-
-        
-
-        .cancel-btn:hover {
-
-            background: #e8f0ff;
-
-            border-color: #667eea;
-
-        }
-
-        
-
-        .messages-display {
-
-            background: #f8f9ff;
-
-            border-radius: 15px;
-
-            padding: 20px;
-
-            margin-top: 20px;
-
-            max-height: 300px;
-
-            overflow-y: auto;
-
-        }
-
-        
-
-        .message-item {
-
-            background: white;
-
-            padding: 15px;
-
-            border-radius: 10px;
-
-            margin-bottom: 10px;
-
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-
-            animation: slideIn 0.3s ease;
-
-            border-left: 4px solid #667eea;
-
-        }
-
-        
-
-        @keyframes slideIn {
-
-            from { opacity: 0; transform: translateX(-20px); }
-
-            to { opacity: 1; transform: translateX(0); }
-
-        }
-
-        
-
-        .message-author {
-
-            font-weight: 600;
-
-            color: #667eea;
-
-            margin-bottom: 5px;
-
-        }
-
-        
-
-        .message-text {
-
-            color: #333;
-
-            line-height: 1.5;
-
-        }
-
-        
-
-        .no-actors {
-
-            text-align: center;
-
-            color: #666;
-
-            font-size: 1.2em;
-
-            margin: 40px 0;
-
-        }
-
-        
-
-        @media (max-width: 768px) {
-
-            .main-title {
-
-                font-size: 2.5em;
-
-            }
-
-            
-
-            .date-selector {
-
-                flex-direction: column;
-
-                align-items: center;
-
-            }
-
-            
-
-            .actors-grid {
-
-                grid-template-columns: 1fr;
-
-            }
-
-            
-
-            .modal-content {
-
-                width: 95%;
-
-                padding: 30px;
-
-            }
-
-        }
-
-    </style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UN_CONNECTED 배우 응원 메시지</title>
+    <style>
+        /* CSS는 변경 없음 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .main-title {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .date-selector {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .date-btn {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            border: 2px solid #e0e6ed;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .date-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .date-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .actors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .actor-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .actor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .actor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+        
+        .actor-card:hover::before {
+            opacity: 0.05;
+        }
+        
+        .actor-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden; /* 이미지 둥글게 자르기 */
+        }
+        
+        .actor-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+        }
+        
+        .actor-name {
+            font-size: 1.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .actor-role {
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .message-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .modal-actor-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden; /* 이미지 둥글게 자르기 */
+        }
+        
+        .modal-actor-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+        }
+        
+        .modal-actor-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .modal-actor-role {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .message-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e6ed;
+            border-radius: 15px;
+            font-size: 1.1em;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .message-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+        
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .send-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .cancel-btn {
+            background: #f8f9ff;
+            color: #666;
+            border: 2px solid #e0e6ed;
+        }
+        
+        .cancel-btn:hover {
+            background: #e8f0ff;
+            border-color: #667eea;
+        }
+        
+        .messages-display {
+            background: #f8f9ff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .message-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            animation: slideIn 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .message-author {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .message-text {
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .no-actors {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin: 40px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5em;
+            }
+            
+            .date-selector {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .actors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 30px;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-    <div class="container">
-
-        <div class="header">
-
-            <div class="main-title">UN_CONNECTED</div>
-
-            <div class="subtitle">배우들에게 따뜻한 응원의 메시지를 보내주세요 💙</div>
-
-        </div>
-
-        
-
-        <div class="main-content">
-
-            <div class="date-selector">
-
-                <button class="date-btn active" onclick="selectDate(event, '2025-07-18')">
-
-                    2025.07.18 (금) 19:00 🎭
-
-                </button>
-
-                <button class="date-btn" onclick="selectDate(event, '2025-07-19')">
-
-                    2025.07.19 (토) 19:00 💙
-
-                </button>
-
-            </div>
-
-            
-
-            <div class="actors-grid" id="actorsGrid">
-
-            </div>
-
-            
-
-            </div>
-
-    </div>
-
-    
-
-    <div class="message-modal" id="messageModal">
-
-        <div class="modal-content">
-
-            <div class="modal-header">
-
-                <div class="modal-actor-photo" id="modalActorPhoto"></div>
-
-                <div class="modal-actor-name" id="modalActorName"></div>
-
-                <div class="modal-actor-role" id="modalActorRole"></div>
-
-            </div>
-
-            
-
-            <input type="text" class="message-input" id="authorInput" placeholder="작성자 이름을 입력하세요" style="height: auto; min-height: auto; margin-bottom: 15px;">
-
-            
-
-            <textarea class="message-input" id="messageInput" placeholder="따뜻한 응원의 메시지를 적어주세요..."></textarea>
-
-            
-
-            <div class="modal-buttons">
-
-                <button class="modal-btn cancel-btn" onclick="closeModal()">취소</button>
-
-                <button class="modal-btn send-btn" onclick="sendMessage()">메시지 보내기 💌</button>
-
-            </div>
-
-            
-
-            <div class="messages-display" id="messagesDisplay"></div>
-
-        </div>
-
-    </div>
-
-
-
-   <!DOCTYPE html>
-
-<html lang="ko">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>UN_CONNECTED 배우 응원 메시지</title>
-
-<style>
-
-* {
-
-margin: 0;
-
-padding: 0;
-
-box-sizing: border-box;
-
-}
-
-
-body {
-
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-min-height: 100vh;
-
-padding: 20px;
-
-}
-
-
-.container {
-
-max-width: 1200px;
-
-margin: 0 auto;
-
-background: white;
-
-border-radius: 20px;
-
-box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-
-overflow: hidden;
-
-}
-
-
-.header {
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-color: white;
-
-padding: 40px;
-
-text-align: center;
-
-position: relative;
-
-overflow: hidden;
-
-}
-
-
-.header::before {
-
-content: '';
-
-position: absolute;
-
-top: -50%;
-
-left: -50%;
-
-width: 200%;
-
-height: 200%;
-
-background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-
-animation: shimmer 3s infinite;
-
-}
-
-
-@keyframes shimmer {
-
-0% { transform: rotate(0deg); }
-
-100% { transform: rotate(360deg); }
-
-}
-
-
-.main-title {
-
-font-size: 3em;
-
-font-weight: 700;
-
-margin-bottom: 15px;
-
-letter-spacing: -1px;
-
-position: relative;
-
-z-index: 1;
-
-}
-
-
-.subtitle {
-
-font-size: 1.3em;
-
-opacity: 0.9;
-
-position: relative;
-
-z-index: 1;
-
-}
-
-
-.main-content {
-
-padding: 40px;
-
-}
-
-
-.date-selector {
-
-display: flex;
-
-justify-content: center;
-
-gap: 20px;
-
-margin-bottom: 40px;
-
-flex-wrap: wrap;
-
-}
-
-
-.date-btn {
-
-padding: 15px 30px;
-
-background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
-
-border: 2px solid #e0e6ed;
-
-border-radius: 25px;
-
-font-size: 1.1em;
-
-font-weight: 600;
-
-cursor: pointer;
-
-transition: all 0.3s ease;
-
-position: relative;
-
-overflow: hidden;
-
-}
-
-
-.date-btn.active {
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-color: white;
-
-border-color: #667eea;
-
-transform: translateY(-2px);
-
-box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-
-}
-
-
-.date-btn:hover {
-
-transform: translateY(-2px);
-
-box-shadow: 0 10px 20px rgba(102, 126, 234, 0.2);
-
-}
-
-
-.actors-grid {
-
-display: grid;
-
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-
-gap: 30px;
-
-margin-bottom: 40px;
-
-}
-
-
-.actor-card {
-
-background: white;
-
-border-radius: 20px;
-
-padding: 25px;
-
-text-align: center;
-
-box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-transition: all 0.3s ease;
-
-cursor: pointer;
-
-border: 3px solid transparent;
-
-position: relative;
-
-overflow: hidden;
-
-}
-
-
-.actor-card::before {
-
-content: '';
-
-position: absolute;
-
-top: 0;
-
-left: 0;
-
-right: 0;
-
-bottom: 0;
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-opacity: 0;
-
-transition: opacity 0.3s ease;
-
-z-index: 1;
-
-}
-
-
-.actor-card:hover {
-
-transform: translateY(-10px);
-
-box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
-
-border-color: #667eea;
-
-}
-
-
-.actor-card:hover::before {
-
-opacity: 0.05;
-
-}
-
-
-.actor-photo {
-
-width: 120px;
-
-height: 120px;
-
-border-radius: 50%;
-
-margin: 0 auto 20px;
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-display: flex;
-
-align-items: center;
-
-justify-content: center;
-
-font-size: 3em;
-
-color: white;
-
-position: relative;
-
-z-index: 2;
-
-box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-overflow: hidden; /* 이미지 둥글게 자르기 */
-
-}
-
-
-
-.actor-photo img {
-
-width: 100%;
-
-height: 100%;
-
-object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
-
-}
-
-
-.actor-name {
-
-font-size: 1.5em;
-
-font-weight: 700;
-
-margin-bottom: 10px;
-
-color: #333;
-
-position: relative;
-
-z-index: 2;
-
-}
-
-
-.actor-role {
-
-color: #666;
-
-font-size: 1.1em;
-
-margin-bottom: 15px;
-
-position: relative;
-
-z-index: 2;
-
-}
-
-
-.message-modal {
-
-display: none;
-
-position: fixed;
-
-top: 0;
-
-left: 0;
-
-width: 100%;
-
-height: 100%;
-
-background: rgba(0,0,0,0.7);
-
-z-index: 1000;
-
-backdrop-filter: blur(5px);
-
-}
-
-
-.modal-content {
-
-position: absolute;
-
-top: 50%;
-
-left: 50%;
-
-transform: translate(-50%, -50%);
-
-background: white;
-
-border-radius: 25px;
-
-padding: 40px;
-
-max-width: 500px;
-
-width: 90%;
-
-max-height: 80vh;
-
-overflow-y: auto;
-
-box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-
-animation: modalSlideIn 0.3s ease;
-
-}
-
-
-@keyframes modalSlideIn {
-
-from { opacity: 0; transform: translate(-50%, -60%); }
-
-to { opacity: 1; transform: translate(-50%, -50%); }
-
-}
-
-
-.modal-header {
-
-text-align: center;
-
-margin-bottom: 30px;
-
-}
-
-
-.modal-actor-photo {
-
-width: 100px;
-
-height: 100px;
-
-border-radius: 50%;
-
-margin: 0 auto 20px;
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-display: flex;
-
-align-items: center;
-
-justify-content: center;
-
-font-size: 2.5em;
-
-color: white;
-
-box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-
-overflow: hidden; /* 이미지 둥글게 자르기 */
-
-}
-
-
-
-.modal-actor-photo img {
-
-width: 100%;
-
-height: 100%;
-
-object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
-
-}
-
-
-.modal-actor-name {
-
-font-size: 1.8em;
-
-font-weight: 700;
-
-margin-bottom: 10px;
-
-color: #333;
-
-}
-
-
-.modal-actor-role {
-
-color: #666;
-
-font-size: 1.1em;
-
-}
-
-
-.message-input {
-
-width: 100%;
-
-padding: 15px 20px;
-
-border: 2px solid #e0e6ed;
-
-border-radius: 15px;
-
-font-size: 1.1em;
-
-outline: none;
-
-transition: all 0.3s ease;
-
-margin-bottom: 20px;
-
-resize: vertical;
-
-min-height: 100px;
-
-}
-
-
-.message-input:focus {
-
-border-color: #667eea;
-
-box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-
-}
-
-
-.modal-buttons {
-
-display: flex;
-
-gap: 15px;
-
-justify-content: flex-end;
-
-}
-
-
-.modal-btn {
-
-padding: 12px 25px;
-
-border: none;
-
-border-radius: 25px;
-
-font-size: 1.1em;
-
-font-weight: 600;
-
-cursor: pointer;
-
-transition: all 0.3s ease;
-
-}
-
-
-.send-btn {
-
-background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-
-color: white;
-
-}
-
-
-.send-btn:hover {
-
-transform: translateY(-2px);
-
-box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-
-}
-
-
-.cancel-btn {
-
-background: #f8f9ff;
-
-color: #666;
-
-border: 2px solid #e0e6ed;
-
-}
-
-
-.cancel-btn:hover {
-
-background: #e8f0ff;
-
-border-color: #667eea;
-
-}
-
-
-.messages-display {
-
-background: #f8f9ff;
-
-border-radius: 15px;
-
-padding: 20px;
-
-margin-top: 20px;
-
-max-height: 300px;
-
-overflow-y: auto;
-
-}
-
-
-.message-item {
-
-background: white;
-
-padding: 15px;
-
-border-radius: 10px;
-
-margin-bottom: 10px;
-
-box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-
-animation: slideIn 0.3s ease;
-
-border-left: 4px solid #667eea;
-
-}
-
-
-@keyframes slideIn {
-
-from { opacity: 0; transform: translateX(-20px); }
-
-to { opacity: 1; transform: translateX(0); }
-
-}
-
-
-.message-author {
-
-font-weight: 600;
-
-color: #667eea;
-
-margin-bottom: 5px;
-
-}
-
-
-.message-text {
-
-color: #333;
-
-line-height: 1.5;
-
-}
-
-
-.no-actors {
-
-text-align: center;
-
-color: #666;
-
-font-size: 1.2em;
-
-margin: 40px 0;
-
-}
-
-
-@media (max-width: 768px) {
-
-.main-title {
-
-font-size: 2.5em;
-
-}
-
-
-.date-selector {
-
-flex-direction: column;
-
-align-items: center;
-
-}
-
-
-.actors-grid {
-
-grid-template-columns: 1fr;
-
-}
-
-
-.modal-content {
-
-width: 95%;
-
-padding: 30px;
-
-}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<div class="header">
-
-<div class="main-title">UN_CONNECTED</div>
-
-<div class="subtitle">배우들에게 따뜻한 응원의 메시지를 보내주세요 💙</div>
-
-</div>
-
-
-<div class="main-content">
-
-<div class="date-selector">
-
-<button class="date-btn active" onclick="selectDate(event, '2025-07-18')">
-
-2025.07.18 (금) 19:00 🎭
-
-</button>
-
-<button class="date-btn" onclick="selectDate(event, '2025-07-19')">
-
-2025.07.19 (토) 19:00 💙
-
-</button>
-
-</div>
-
-
-<div class="actors-grid" id="actorsGrid">
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<div class="message-modal" id="messageModal">
-
-<div class="modal-content">
-
-<div class="modal-header">
-
-<div class="modal-actor-photo" id="modalActorPhoto"></div>
-
-<div class="modal-actor-name" id="modalActorName"></div>
-
-<div class="modal-actor-role" id="modalActorRole"></div>
-
-</div>
-
-
-<input type="text" class="message-input" id="authorInput" placeholder="작성자 이름을 입력하세요" style="height: auto; min-height: auto; margin-bottom: 15px;">
-
-
-<textarea class="message-input" id="messageInput" placeholder="따뜻한 응원의 메시지를 적어주세요..."></textarea>
-
-
-<div class="modal-buttons">
-
-<button class="modal-btn cancel-btn" onclick="closeModal()">취소</button>
-
-<button class="modal-btn send-btn" onclick="sendMessage()">메시지 보내기 💌</button>
-
-</div>
-
-
-<div class="messages-display" id="messagesDisplay"></div>
-
-</div>
-
-</div>
-
-
-
-<script>
-
-// 기본 배우 데이터
-
-const defaultActorsData = {
-
-'2025-07-18': [
-
-{ id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
-
-{ id: 2, name: '황시현', role: '하이디', photo: 'https://i.postimg.cc/QNgC2GB6/image.jpg', messages: [] },
-
-{ id: 3, name: '구태본', role: '코너', photo: 'https://i.postimg.cc/SN79fY7x/image.jpg', messages: [] },
-
-{ id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
-
-{ id: 5, name: '김백진', role: '래리', photo: 'https://i.postimg.cc/Pqcv5Wh2/image.jpg', messages: [] },
-
-{ id: 6, name: '김수정', role: '신시아', photo: 'https://i.postimg.cc/sxCBp3MW/image.jpg', messages: [] },
-
-{ id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
-
-{ id: 8, name: '박현서', role: '알라나', photo: 'https://i.postimg.cc/dtvk3tPP/image.jpg', messages: [] },
-
-{ id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
-
-{ id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
-
-{ id: 11, name: '나명건', role: '에릭', photo: 'https://i.postimg.cc/1RDVyVdr/image.jpg', messages: [] },
-
-{ id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
-
-{ id: 13, name: '정민경', role: '사라', photo:
-
-'https://i.postimg.cc/LsrhpmBW/image.jpg', messages: [] },
-
-{ id: 14, name: '조한', role: '조쉬', photo:'https://i.postimg.cc/PrtJh3Yd/image.jpg',messages: [] },
-
-{ id: 15, name: '정윤호', role: '연출', photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
-
-
-
-],
-
-'2025-07-19': [
-
-{ id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
-
-{ id: 2, name: '김수빈', role: '하이디', photo: 'https://i.postimg.cc/SsM22nxq/image.jpg', messages: [] },
-
-{ id: 3, name: '구태본', role: '코너', photo: 'https://i.postimg.cc/SN79fY7x/image.jpg', messages: [] },
-
-{ id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
-
-{ id: 5, name: '김백진', role: '래리', photo: 'https://i.postimg.cc/Pqcv5Wh2/image.jpg', messages: [] },
-
-{ id: 6, name: '이서진', role: '신시아', photo: 'https://i.postimg.cc/QddFg4df/image.jpg', messages: [] },
-
-{ id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
-
-{ id: 8, name: '김두현', role: '알라나', photo: 'https://i.postimg.cc/CxhqPMmH/image.jpg', messages: [] },
-
-{ id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
-
-{ id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
-
-{ id: 11, name: '나명건', role: '에릭', photo: 'https://i.postimg.cc/1RDVyVdr/image.jpg', messages: [] },
-
-{ id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
-
-{ id: 13, name: '정민경', role: '사라', photo:
-
-'https://i.postimg.cc/LsrhpmBW/image.jpg', messages: [] },
-
-{ id: 14, name: '조한', role: '조쉬', photo:'https://i.postimg.cc/PrtJh3Yd/image.jpg',messages: [] },
-
-{ id: 15, name: '정윤호', role: '연출', photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
-
-
-
-]
-
-};
-
-
-let actorsData; // 전역 actorsData 변수 선언
-
-let currentDate = '2025-07-18';
-
-let currentActor = null;
-
-
-// localStorage에서 데이터 로드
-
-function loadActorsData() {
-
-const savedData = localStorage.getItem('un_connected_messages');
-
-if (savedData) {
-
-return JSON.parse(savedData);
-
-}
-
-// 저장된 데이터가 없으면 기본 데이터 사용
-
-return JSON.parse(JSON.stringify(defaultActorsData)); // 깊은 복사
-
-}
-
-
-
-// localStorage에 데이터 저장
-
-function saveActorsData() {
-
-localStorage.setItem('un_connected_messages', JSON.stringify(actorsData));
-
-}
-
-
-
-// 페이지 로드 시 초기화
-
-window.onload = function() {
-
-actorsData = loadActorsData(); // 데이터 로드
-
-
-const initialDateButton = document.querySelector('.date-btn[onclick*="2025-07-18"]');
-
-if (initialDateButton) {
-
-initialDateButton.classList.add('active');
-
-}
-
-displayActors(currentDate);
-
-};
-
-
-// 날짜 선택 함수
-
-function selectDate(event, date) {
-
-currentDate = date;
-
-
-document.querySelectorAll('.date-btn').forEach(btn => {
-
-btn.classList.remove('active');
-
-});
-
-event.target.classList.add('active');
-
-
-displayActors(date);
-
-}
-
-
-// 배우 목록 표시
-
-function displayActors(date) {
-
-const actorsGrid = document.getElementById('actorsGrid');
-
-const actors = actorsData[date];
-
-
-if (!actors || actors.length === 0) {
-
-actorsGrid.innerHTML = '<div class="no-actors">해당 날짜에 출연하는 배우가 없습니다.</div>';
-
-return;
-
-}
-
-
-actorsGrid.innerHTML = '';
-
-
-actors.forEach(actor => {
-
-const actorCard = document.createElement('div');
-
-actorCard.className = 'actor-card';
-
-actorCard.onclick = () => openModal(actor);
-
-
-// photo 속성에 이미지 경로가 있으면 img 태그를 사용, 없으면 이름의 첫 글자를 표시
-
-// 이미지 로드 실패 시에도 이름의 첫 글자 표시
-
-const photoHtml = actor.photo
-
-? `<img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">`
-
-: actor.name.charAt(0);
-
-
-
-actorCard.innerHTML = `
-
-<div class="actor-photo">${photoHtml}</div>
-
-<div class="actor-name">${actor.name}</div>
-
-<div class="actor-role">${actor.role}</div>
-
-`;
-
-
-actorsGrid.appendChild(actorCard);
-
-});
-
-}
-
-
-// 모달 열기
-
-function openModal(actor) {
-
-currentActor = actor;
-
-const modal = document.getElementById('messageModal');
-
-
-const modalActorPhotoDiv = document.getElementById('modalActorPhoto');
-
-if (actor.photo) {
-
-modalActorPhotoDiv.innerHTML = `<img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">`;
-
-} else {
-
-modalActorPhotoDiv.textContent = actor.name.charAt(0);
-
-}
-
-
-
-document.getElementById('modalActorName').textContent = actor.name;
-
-document.getElementById('modalActorRole').textContent = actor.role;
-
-document.getElementById('authorInput').value = '';
-
-document.getElementById('messageInput').value = '';
-
-
-displayMessages(actor.messages);
-
-
-modal.style.display = 'block';
-
-document.body.style.overflow = 'hidden';
-
-}
-
-
-// 모달 닫기
-
-function closeModal() {
-
-const modal = document.getElementById('messageModal');
-
-modal.style.display = 'none';
-
-document.body.style.overflow = 'auto';
-
-currentActor = null;
-
-}
-
-
-// 메시지 전송
-
-function sendMessage() {
-
-const authorInput = document.getElementById('authorInput');
-
-const messageInput = document.getElementById('messageInput');
-
-const authorName = authorInput.value.trim();
-
-const message = messageInput.value.trim();
-
-
-if (!authorName) {
-
-alert('작성자 이름을 입력해주세요!');
-
-authorInput.focus();
-
-return;
-
-}
-
-
-if (!message) {
-
-alert('메시지를 입력해주세요!');
-
-messageInput.focus();
-
-return;
-
-}
-
-
-if (!currentActor) {
-
-alert('배우를 선택해주세요!');
-
-return;
-
-}
-
-
-// 메시지 추가
-
-const newMessage = {
-
-id: Date.now(),
-
-text: message,
-
-author: authorName,
-
-timestamp: new Date().toLocaleString()
-
-};
-
-
-currentActor.messages.push(newMessage);
-
-
-saveActorsData(); // 메시지 추가 후 localStorage에 저장
-
-
-// 화면 업데이트
-
-displayMessages(currentActor.messages);
-
-displayActors(currentDate);
-
-
-// 입력 필드 초기화
-
-authorInput.value = '';
-
-messageInput.value = '';
-
-
-// 성공 메시지
-
-alert(`${currentActor.name}님에게 ${authorName}님의 응원 메시지가 전달되었습니다! 💌`);
-
-}
-
-
-// 메시지 목록 표시
-
-function displayMessages(messages) {
-
-const messagesDisplay = document.getElementById('messagesDisplay');
-
-
-if (!messages || messages.length === 0) {
-
-messagesDisplay.innerHTML = '<div style="text-align: center; color: #666;">아직 응원 메시지가 없습니다. 첫 번째 메시지를 남겨주세요!</div>';
-
-return;
-
-}
-
-
-messagesDisplay.innerHTML = '';
-
-
-messages.forEach(message => {
-
-const messageDiv = document.createElement('div');
-
-messageDiv.className = 'message-item';
-
-messageDiv.innerHTML = `
-
-<div class="message-author">${message.author}</div>
-
-<div class="message-text">${message.text}</div>
-
-`;
-
-messagesDisplay.appendChild(messageDiv);
-
-});
-
-
-messagesDisplay.scrollTop = messagesDisplay.scrollHeight;
-
-}
-
-
-// 모달 외부 클릭 시 닫기
-
-window.onclick = function(event) {
-
-const modal = document.getElementById('messageModal');
-
-if (event.target === modal) {
-
-closeModal();
-
-}
-
-}
-
-
-// ESC 키로 모달 닫기
-
-document.addEventListener('keydown', function(event) {
-
-if (event.key === 'Escape') {
-
-closeModal();
-
-}
-
-});
-
-
-// 엔터 키로 메시지 전송 (Ctrl+Enter)
-
-document.getElementById('messageInput').addEventListener('keydown', function(event) {
-
-if (event.key === 'Enter' && event.ctrlKey) {
-
-sendMessage();
-
-}
-
-});
-
-
-// 작성자 입력 필드에서 엔터 키로 메시지 입력창으로 이동
-
-document.getElementById('authorInput').addEventListener('keydown', function(event) {
-
-if (event.key === 'Enter') {
-
-event.preventDefault();
-
-document.getElementById('messageInput').focus();
-
-}
-
-});
-
-</script>
-
+    <div class="container">
+        <div class="header">
+            <div class="main-title">UN_CONNECTED</div>
+            <div class="subtitle">배우들에게 따뜻한 응원의 메시지를 보내주세요 💙</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="date-selector">
+                <button class="date-btn active" onclick="selectDate(event, '2025-07-18')">
+                    2025.07.18 (금) 19:00 💙
+                </button>
+                <button class="date-btn" onclick="selectDate(event, '2025-07-19')">
+                    2025.07.19 (토) 19:00 💙
+                </button>
+            </div>
+            
+            <div class="actors-grid" id="actorsGrid">
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="message-modal" id="messageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-actor-photo" id="modalActorPhoto"></div>
+                <div class="modal-actor-name" id="modalActorName"></div>
+                <div class="modal-actor-role" id="modalActorRole"></div>
+            </div>
+            
+            <input type="text" class="message-input" id="authorInput" placeholder="작성자 이름을 입력하세요" style="height: auto; min-height: auto; margin-bottom: 15px;">
+            
+            <textarea class="message-input" id="messageInput" placeholder="따뜻한 응원의 메시지를 적어주세요..."></textarea>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn cancel-btn" onclick="closeModal()">취소</button>
+                <button class="modal-btn send-btn" onclick="sendMessage()">메시지 보내기 💌</button>
+            </div>
+            
+            <div class="messages-display" id="messagesDisplay"></div>
+            
+        </div>
+    </div>
+
+    <script>
+        // 1. Render에 배포된 백엔드 서버의 URL
+        // 'https://real-final-3.onrender.com' 대신 실제 Render Public URL로 변경하세요.
+        const BASE_URL = 'https://real-final-3.onrender.com'; 
+
+        // 기본 배우 데이터 (서버에서 가져올 것이므로 이제는 초기값으로만 사용하거나 제거할 수 있습니다)
+        const defaultActorsData = {
+            '2025-07-18': [
+                { id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
+                { id: 2, name: '황시현', role: '하이디', photo: 'https://i.postimg.cc/QNgC2GB6/image.jpg', messages: [] },
+                { id: 3, name: '구태본', role: '코너', photo: 'https://i.postimg.cc/SN79fY7x/image.jpg', messages: [] },
+                { id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
+                { id: 5, name: '김백진', role: '래리', photo: 'https://i.postimg.cc/Pqcv5Wh2/image.jpg', messages: [] },
+                { id: 6, name: '김수정', role: '신시아', photo: 'https://i.postimg.cc/sxCBp3MW/image.jpg', messages: [] },
+                { id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
+                { id: 8, name: '박현서', role: '알라나', photo: 'https://i.postimg.cc/dtvk3tPP/image.jpg', messages: [] },
+                { id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
+                { id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
+                { id: 11, name: '나명건', role: '에릭', photo: 'https://i.postimg.cc/1RDVyVdr/image.jpg', messages: [] },
+                { id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
+                { id: 13, name: '정민경', role: '사라', photo: 'https://i.postimg.cc/LsrhpmBW/image.jpg', messages: [] },
+                { id: 14, name: '조한', role: '조쉬', photo:'https://i.postimg.cc/PrtJh3Yd/image.jpg',messages: [] },
+                { id: 15, name: '정윤호', role: '연출', photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
+            ],
+            '2025-07-19': [
+                { id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
+                { id: 2, name: '김수빈', role: '하이디', photo: 'https://i.postimg.cc/SsM22nxq/image.jpg', messages: [] },
+                { id: 3, name: '구태본', role: '코너', photo: 'https://i.postimg.cc/SN79fY7x/image.jpg', messages: [] },
+                { id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
+                { id: 5, name: '김백진', role: '래리', photo: 'https://i.postimg.cc/Pqcv5Wh2/image.jpg', messages: [] },
+                { id: 6, name: '이서진', role: '신시아', photo: 'https://i.postimg.cc/QddFg4df/image.jpg', messages: [] },
+                { id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
+                { id: 8, name: '김두현', role: '알라나', photo: 'https://i.postimg.cc/CxhqPMmH/image.jpg', messages: [] },
+                { id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
+                { id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
+                { id: 11, name: '나명건', role: '에릭', photo: 'https://i.postimg.cc/1RDVyVdr/image.jpg', messages: [] },
+                { id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
+                { id: 13, name: '정민경', role: '사라', photo: 'https://i.postimg.cc/LsrhpmBW/image.jpg', messages: [] },
+                { id: 14, name: '조한', role: '조쉬', photo:'https://i.postimg.cc/PrtJh3Yd/image.jpg',messages: [] },
+                { id: 15, name: '정윤호', role: '연출', photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
+            ]
+        };
+
+        let actorsData; // 전역 actorsData 변수 선언
+        let currentDate = '2025-07-18';
+        let currentActor = null;
+
+        // 초기 데이터 주입 함수 (서버 연동용)
+        async function initializeServerData() {
+            try {
+                // 이 API 엔드포인트는 server.js에서 정의되어 있어야 합니다.
+                const response = await fetch(`${BASE_URL}/api/init-data`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ actors: defaultActorsData })
+                });
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to initialize data: ${response.status} ${errorText}`);
+                }
+                console.log('초기 배우 데이터가 서버에 성공적으로 주입되었습니다.');
+            } catch (error) {
+                console.error('초기 배우 데이터 주입 중 오류 발생:', error);
+                alert('데이터 초기화 중 오류가 발생했습니다. 콘솔을 확인해주세요.');
+            }
+        }
+
+        // 서버에서 배우 데이터 로드
+        async function loadActors() {
+            try {
+                const response = await fetch(`${BASE_URL}/api/actors`); // server.js의 /api/actors 엔드포인트 호출
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to fetch actors: ${response.status} ${errorText}`);
+                }
+                const data = await response.json();
+                actorsData = data; // 서버에서 받은 데이터로 업데이트
+                console.log('서버에서 배우 데이터 로드 완료:', actorsData);
+                displayActors(currentDate); // 현재 날짜의 배우 표시
+            } catch (error) {
+                console.error('배우 데이터 로드 중 오류 발생:', error);
+                alert('배우 데이터를 불러오는 데 실패했습니다. 서버가 실행 중인지 확인해주세요.');
+                // 서버에서 데이터를 가져오지 못했을 때를 대비하여 로컬 기본 데이터 사용 (옵션)
+                // actorsData = JSON.parse(JSON.stringify(defaultActorsData));
+                // displayActors(currentDate);
+            }
+        }
+
+        // 페이지 로드 시 초기화 (서버 연동용으로 변경)
+        window.onload = async function() {
+            // 이 라인은 데이터베이스에 초기 데이터가 없거나 변경되었을 때만 주석을 해제하고 배포합니다.
+            // 데이터가 이미 잘 들어가 있다면, 이 라인을 주석 처리하거나 제거하는 것이 좋습니다.
+            // 처음 배포할 때 한 번 실행하여 초기 데이터를 DB에 넣은 후에는 주석 처리하는 것을 권장합니다.
+            // await initializeServerData(); 
+            
+            await loadActors(); // 서버에서 배우 정보 로드
+
+            const initialDateButton = document.querySelector('.date-btn[onclick*="2025-07-18"]');
+            if (initialDateButton) {
+                initialDateButton.classList.add('active');
+            }
+        };
+
+        // 날짜 선택 함수 (변경 없음, loadActors() 호출)
+        function selectDate(event, date) {
+            currentDate = date;
+            document.querySelectorAll('.date-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            displayActors(date);
+        }
+
+        // 배우 목록 표시 (변경 없음)
+        function displayActors(date) {
+            const actorsGrid = document.getElementById('actorsGrid');
+            const actors = actorsData[date];
+
+            if (!actors || actors.length === 0) {
+                actorsGrid.innerHTML = '<div class="no-actors">해당 날짜에 출연하는 배우가 없습니다.</div>';
+                return;
+            }
+
+            actorsGrid.innerHTML = '';
+
+            actors.forEach(actor => {
+                const actorCard = document.createElement('div');
+                actorCard.className = 'actor-card';
+                actorCard.onclick = () => openModal(actor);
+
+                const photoHtml = actor.photo
+                    ? `<img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">`
+                    : actor.name.charAt(0);
+
+                actorCard.innerHTML = `
+                    <div class="actor-photo">${photoHtml}</div>
+                    <div class="actor-name">${actor.name}</div>
+                    <div class="actor-role">${actor.role}</div>
+                `;
+                actorsGrid.appendChild(actorCard);
+            });
+        }
+
+        // 모달 열기 (메시지 로드 부분 수정)
+        async function openModal(actor) {
+            currentActor = actor;
+            const modal = document.getElementById('messageModal');
+
+            const modalActorPhotoDiv = document.getElementById('modalActorPhoto');
+            if (actor.photo) {
+                modalActorPhotoDiv.innerHTML = `<img src="${actor.photo}" alt="${actor.name} 배우의 프로필 사진 (${actor.role} 역)" onerror="this.onerror=null; this.src=''; this.parentElement.textContent=this.alt.charAt(0);">`;
+            } else {
+                modalActorPhotoDiv.textContent = actor.name.charAt(0);
+            }
+
+            document.getElementById('modalActorName').textContent = actor.name;
+            document.getElementById('modalActorRole').textContent = actor.role;
+            document.getElementById('authorInput').value = '';
+            document.getElementById('messageInput').value = '';
+
+            await loadMessagesForActor(actor.id); // 해당 배우의 메시지 로드
+
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // 모달 닫기 (변경 없음)
+        function closeModal() {
+            const modal = document.getElementById('messageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            currentActor = null;
+        }
+
+        // 메시지 전송 (서버 연동용으로 변경)
+        async function sendMessage() {
+            const authorInput = document.getElementById('authorInput');
+            const messageInput = document.getElementById('messageInput');
+            const authorName = authorInput.value.trim();
+            const messageText = messageInput.value.trim(); // 변수명 충돌 피하기 위해 message -> messageText로 변경
+
+            if (!authorName) {
+                alert('작성자 이름을 입력해주세요!');
+                authorInput.focus();
+                return;
+            }
+
+            if (!messageText) {
+                alert('메시지를 입력해주세요!');
+                messageInput.focus();
+                return;
+            }
+
+            if (!currentActor) {
+                alert('배우를 선택해주세요!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${BASE_URL}/api/actors/${currentActor.id}/messages`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ author: authorName, text: messageText, date: currentDate })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to send message: ${response.status} ${errorText}`);
+                }
+
+                const updatedActor = await response.json(); // 서버에서 업데이트된 배우 정보 받기
+                
+                // actorsData에서 해당 배우의 메시지 업데이트 (불필요하면 제거 가능, loadActors()가 더 신뢰성 있음)
+                const actorIndex = actorsData[currentDate].findIndex(a => a.id === currentActor.id);
+                if (actorIndex > -1) {
+                    actorsData[currentDate][actorIndex].messages = updatedActor.messages;
+                }
+                
+                // 모달의 메시지 목록 새로고침
+                displayMessages(updatedActor.messages); 
+                
+                // 입력 필드 초기화
+                authorInput.value = '';
+                messageInput.value = '';
+
+                alert(`${currentActor.name}님에게 ${authorName}님의 응원 메시지가 전달되었습니다! 💌`);
+
+                // 메시지 전송 후 배우 목록을 다시 로드하여 최신화
+                await loadActors(); // 데이터를 서버에서 다시 불러와서 최신 상태 유지
+
+            } catch (error) {
+                console.error('메시지 전송 중 오류 발생:', error);
+                alert('메시지 전송에 실패했습니다. 콘솔을 확인해주세요.');
+            }
+        }
+
+        // 특정 배우의 메시지 로드 (서버 연동용으로 추가)
+        async function loadMessagesForActor(actorId) {
+            try {
+                const response = await fetch(`${BASE_URL}/api/actors/${actorId}/messages?date=${currentDate}`);
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to fetch messages for actor ${actorId}: ${response.status} ${errorText}`);
+                }
+                const messages = await response.json();
+                displayMessages(messages);
+            } catch (error) {
+                console.error(`배우 ${actorId}의 메시지 로드 중 오류 발생:`, error);
+                alert('메시지를 불러오는 데 실패했습니다.');
+                displayMessages([]); // 오류 발생 시 빈 메시지 목록 표시
+            }
+        }
+
+
+        // 메시지 목록 표시 (변경 없음, 서버에서 받아온 메시지 사용)
+        function displayMessages(messages) {
+            const messagesDisplay = document.getElementById('messagesDisplay');
+
+            if (!messages || messages.length === 0) {
+                messagesDisplay.innerHTML = '<div style="text-align: center; color: #666;">아직 응원 메시지가 없습니다. 첫 번째 메시지를 남겨주세요!</div>';
+                return;
+            }
+
+            messagesDisplay.innerHTML = '';
+
+            messages.forEach(message => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message-item';
+                messageDiv.innerHTML = `
+                    <div class="message-author">${message.author}</div>
+                    <div class="message-text">${message.text}</div>
+                `;
+                messagesDisplay.appendChild(messageDiv);
+            });
+
+            messagesDisplay.scrollTop = messagesDisplay.scrollHeight;
+        }
+
+
+        // 모달 외부 클릭 시 닫기 (변경 없음)
+        window.onclick = function(event) {
+            const modal = document.getElementById('messageModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+
+        // ESC 키로 모달 닫기 (변경 없음)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+
+        // 엔터 키로 메시지 전송 (Ctrl+Enter) (변경 없음)
+        document.getElementById('messageInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && event.ctrlKey) {
+                sendMessage();
+            }
+        });
+
+
+        // 작성자 입력 필드에서 엔터 키로 메시지 입력창으로 이동 (변경 없음)
+        document.getElementById('authorInput').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('messageInput').focus();
+            }
+        });
+
+    </script>
 </body>
-
 </html>
