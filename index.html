@@ -494,8 +494,6 @@
 
         // 페이지 로드 시 초기화
      window.onload = async function() {
-    // 개발 시 처음 한 번만 주석을 해제하여 서버에 초기 데이터를 넣고,
-    // 데이터가 DB에 들어가면 다시 주석 처리하거나 이 라인을 제거하세요.
     await initializeServerData(); 
 
     const initialDateButton = document.querySelector('.date-btn[onclick*="2025-07-18"]');
