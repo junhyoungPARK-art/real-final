@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UN_CONNECTED 배우 응원 메시지</title>
     <style>
-        /* CSS는 변경 없음 */
+        /* 기본 CSS */
         * {
             margin: 0;
             padding: 0;
@@ -16,7 +16,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 20px; /* 데스크톱 기본 패딩 */
         }
         
         .container {
@@ -70,15 +70,15 @@
         }
         
         .main-content {
-            padding: 40px;
+            padding: 40px; /* 데스크톱 기본 패딩 */
         }
         
         .date-selector {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 20px; /* 데스크톱 기본 간격 */
             margin-bottom: 40px;
-            flex-wrap: wrap;
+            flex-wrap: wrap; /* 작은 화면에서 줄바꿈 */
         }
         
         .date-btn {
@@ -110,7 +110,7 @@
         .actors-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            gap: 30px; /* 데스크톱 기본 간격 */
             margin-bottom: 40px;
         }
         
@@ -209,11 +209,11 @@
             transform: translate(-50%, -50%);
             background: white;
             border-radius: 25px;
-            padding: 40px;
+            padding: 40px; /* 데스크톱 기본 패딩 */
             max-width: 500px;
             width: 90%;
-            max-height: 80vh;
-            overflow-y: auto;
+            max-height: 80vh; /* 모달 높이 제한 */
+            overflow-y: auto; /* 내용 넘치면 스크롤 */
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
             animation: modalSlideIn 0.3s ease;
         }
@@ -358,23 +358,171 @@
             margin: 40px 0;
         }
         
+        /* --- 모바일 최적화 (기존 @media 쿼리에 추가 및 조정) --- */
         @media (max-width: 768px) {
+            body {
+                padding: 10px; /* 모바일에서 패딩 줄임 */
+            }
+
+            .container {
+                border-radius: 10px; /* 모바일에서 모서리 둥글기 줄임 */
+                box-shadow: none; /* 모바일에서 그림자 제거 (성능 향상) */
+            }
+
+            .header {
+                padding: 25px; /* 모바일 헤더 패딩 줄임 */
+            }
+
             .main-title {
-                font-size: 2.5em;
+                font-size: 2em; /* 모바일 제목 크기 조정 */
+                margin-bottom: 10px;
+            }
+            
+            .subtitle {
+                font-size: 1em; /* 모바일 부제목 크기 조정 */
+            }
+
+            .main-content {
+                padding: 20px; /* 모바일 콘텐츠 패딩 줄임 */
             }
             
             .date-selector {
                 flex-direction: column;
                 align-items: center;
+                gap: 10px; /* 모바일 버튼 간격 줄임 */
+                margin-bottom: 25px;
+            }
+
+            .date-btn {
+                width: 100%; /* 버튼 너비를 꽉 채움 */
+                max-width: 300px; /* 너무 커지지 않도록 최대 너비 설정 */
+                padding: 12px 20px; /* 버튼 패딩 조정 */
+                font-size: 1em; /* 버튼 폰트 크기 조정 */
             }
             
             .actors-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* 모바일에서 1열로 변경 */
+                gap: 20px; /* 배우 카드 간격 조정 */
+            }
+            
+            .actor-card {
+                padding: 20px; /* 배우 카드 패딩 조정 */
+            }
+
+            .actor-photo {
+                width: 100px; /* 모바일 배우 사진 크기 조정 */
+                height: 100px;
+                font-size: 2.5em;
+                margin-bottom: 15px;
+            }
+
+            .actor-name {
+                font-size: 1.3em; /* 모바일 배우 이름 크기 조정 */
+            }
+
+            .actor-role {
+                font-size: 1em; /* 모바일 배우 역할 크기 조정 */
+                margin-bottom: 10px;
+            }
+
+            .message-modal {
+                /* 이미 뷰포트를 꽉 채우도록 되어 있으므로, 추가 조정 필요 없음 */
             }
             
             .modal-content {
                 width: 95%;
-                padding: 30px;
+                padding: 25px; /* 모달 내부 패딩 줄임 */
+                max-height: 90vh; /* 모바일에서 모달 높이 최대로 늘림 */
+            }
+
+            .modal-header {
+                margin-bottom: 20px;
+            }
+
+            .modal-actor-photo {
+                width: 80px; /* 모달 내부 배우 사진 크기 조정 */
+                height: 80px;
+                font-size: 2em;
+                margin-bottom: 15px;
+            }
+            
+            .modal-actor-name {
+                font-size: 1.5em;
+            }
+
+            .modal-actor-role {
+                font-size: 1em;
+            }
+
+            .message-input {
+                padding: 12px 15px; /* 입력 필드 패딩 조정 */
+                font-size: 1em;
+                min-height: 80px; /* 메시지 입력창 최소 높이 조정 */
+            }
+
+            .modal-buttons {
+                flex-direction: column; /* 버튼 세로 정렬 */
+                gap: 10px;
+            }
+
+            .modal-btn {
+                width: 100%; /* 버튼 너비 꽉 채움 */
+                padding: 10px 20px; /* 버튼 패딩 조정 */
+                font-size: 1em;
+            }
+
+            .messages-display {
+                padding: 15px; /* 메시지 목록 패딩 조정 */
+                max-height: 200px; /* 메시지 목록 최대 높이 조정 */
+            }
+
+            .message-item {
+                padding: 12px; /* 메시지 아이템 패딩 조정 */
+                font-size: 0.95em;
+            }
+
+            .message-author {
+                font-size: 0.9em;
+            }
+
+            .message-text {
+                font-size: 0.9em;
+            }
+        }
+
+        /* 더 작은 화면 (예: iPhone SE 같은 좁은 화면)을 위한 추가 최적화 */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            .main-title {
+                font-size: 1.8em;
+            }
+            .subtitle {
+                font-size: 0.9em;
+            }
+            .main-content {
+                padding: 15px;
+            }
+            .date-btn {
+                font-size: 0.9em;
+            }
+            .actor-name {
+                font-size: 1.2em;
+            }
+            .actor-role {
+                font-size: 0.9em;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .modal-actor-photo {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8em;
+            }
+            .message-input {
+                min-height: 60px;
             }
         }
     </style>
@@ -428,42 +576,46 @@
         // 서버가 이미 데이터를 가지고 있다면 이 부분은 제거해도 됩니다.
         const defaultActorsData = {
             '2025-07-18': [
-                 { id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
+                { id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
                 { id: 2, name: '황시현', role: '하이디', photo: 'https://i.postimg.cc/QNgC2GB6/image.jpg', messages: [] },
                 { id: 3, name: '구태본', role: '코너', photo: 'https://i.postimg.cc/SN79fY7x/image.jpg', messages: [] },
-                 { id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
+                { id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
                 { id: 5, name: '김백진', role: '래리', photo: 'https://i.postimg.cc/Pqcv5Wh2/image.jpg', messages: [] },
                 { id: 6, name: '김수정', role: '신시아', photo: 'https://i.postimg.cc/sxCBp3MW/image.jpg', messages: [] },
                 { id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
- 		        { id: 8, name: '박현서', role: '알라나', photo: 'https://i.postimg.cc/dtvk3tPP/image.jpg', messages: [] },
- 		        { id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
- 		        { id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
+                { id: 8, name: '박현서', role: '알라나', photo: 'https://i.postimg.cc/dtvk3tPP/image.jpg', messages: [] },
+                { id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
+                { id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
                 { id: 11, name: '나명건', role: '에릭', photo: 'https://i.postimg.cc/1RDVyVdr/image.jpg', messages: [] },
-		        { id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
+                { id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
                 { id: 13, name: '정민경', role: '사라', photo: 'https://i.postimg.cc/LsrhpmBW/image.jpg', messages: [] },
                 { id: 14, name: '조한', role: '조쉬', photo:'https://i.postimg.cc/PrtJh3Yd/image.jpg',messages: [] },
-		        { id: 15, name: '정윤호', role: '연출',  photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
+                { id: 15, name: '정윤호', role: '연출',  photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
             ],
             '2025-07-19': [
-                 { id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
+                { id: 1, name: '정찬우', role: '에반', photo: 'https://i.postimg.cc/2yY61TtF/image.jpg', messages: [] },
                 { id: 2, name: '김수빈', role: '하이디', photo: 'https://i.postimg.cc/SsM22nxq/image.jpg', messages: [] },
                 { id: 3, name: '구태본', role: '코너', photo: 'https://i.postimg.cc/SN79fY7x/image.jpg', messages: [] },
-                 { id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
+                { id: 4, name: '오소정', role: '조이', photo: 'https://i.postimg.cc/Nf4yHqBy/image.jpg', messages: [] },
                 { id: 5, name: '김백진', role: '래리', photo: 'https://i.postimg.cc/Pqcv5Wh2/image.jpg', messages: [] },
                 { id: 6, name: '이서진', role: '신시아', photo: 'https://i.postimg.cc/QddFg4df/image.jpg', messages: [] },
- 		        { id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
- 		        { id: 8, name: '김두현', role: '알라나', photo: 'https://i.postimg.cc/CxhqPMmH/image.jpg', messages: [] },
- 		        { id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
- 		        { id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
+                { id: 7, name: '강민욱', role: '자레드', photo: 'https://i.postimg.cc/fbk0s24V/image.jpg', messages: [] },
+                { id: 8, name: '김두현', role: '알라나', photo: 'https://i.postimg.cc/CxhqPMmH/image.jpg', messages: [] },
+                { id: 9, name: '곽다영', role: '마리', photo: 'https://i.postimg.cc/L8xZrdWd/image.jpg', messages: [] },
+                { id: 10, name: '김영인', role: '주디', photo: 'https://i.postimg.cc/prQmC3j6/image.jpg', messages: [] },
                 { id: 11, name: '나명건', role: '에릭', photo: 'https://i.postimg.cc/1RDVyVdr/image.jpg', messages: [] },
-		        { id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
+                { id: 12, name: '이용철', role: '올리버', photo: 'https://i.postimg.cc/QdYHfQBh/image.jpg', messages: [] },
                 { id: 13, name: '정민경', role: '사라', photo: 'https://i.postimg.cc/LsrhpmBW/image.jpg', messages: [] },
                 { id: 14, name: '조한', role: '조쉬', photo:'https://i.postimg.cc/PrtJh3Yd/image.jpg',messages: [] },
-		        { id: 15, name: '정윤호', role: '연출',  photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
+                { id: 15, name: '정윤호', role: '연출',  photo: 'https://i.postimg.cc/bvGdWZbb/image.jpg', messages: [] },
             ]
         };
 
-        const BASE_URL = 'http://localhost:3000/api'; // 백엔드 서버 주소
+        const BASE_URL = 'http://localhost:3000/api'; // 백엔드 서버 주소 (로컬 개발용)
+        // Vercel 배포 시에는 실제 Netlify Functions URL로 변경해야 합니다.
+        // 예: const BASE_URL = 'https://unconnected.edgeone.app/.netlify/functions/server/api'; 
+        // 또는 Vercel에서 서버리스 함수를 사용한다면:
+        // const BASE_URL = window.location.origin + '/api';
 
         let currentDate = '2025-07-18';
         let currentActor = null; // 현재 선택된 배우 객체를 저장 (서버에서 가져온 데이터)
@@ -493,17 +645,39 @@
         }
 
         // 페이지 로드 시 초기화
-     window.onload = async function() {
-    // 개발 시 처음 한 번만 주석을 해제하여 서버에 초기 데이터를 넣고,
-    // 데이터가 DB에 들어가면 다시 주석 처리하거나 이 라인을 제거하세요.
-    await initializeServerData(); 
+        window.onload = async function() {
+            // 개발 시 처음 한 번만 주석을 해제하여 서버에 초기 데이터를 넣고,
+            // 데이터가 DB에 들어가면 다시 주석 처리하거나 이 라인을 제거하세요.
+            // await initializeServerData(); // <--- 이 라인 주석 처리 여부 확인!
 
-    const initialDateButton = document.querySelector('.date-btn[onclick*="2025-07-18"]');
-    if (initialDateButton) {
-        initialDateButton.classList.add('active');
-    }
-    await displayActors(currentDate);
-};
+            // Vercel 배포 시에는 BASE_URL을 실제 Netlify Functions URL로 변경
+            // 예: BASE_URL = 'https://unconnected.edgeone.app/.netlify/functions/server/api';
+            // 또는 Vercel에서 백엔드 함수를 배포했다면
+            // BASE_URL = window.location.origin + '/api';
+            // 여기서는 임시로 하드코딩된 값 대신, 실제 배포된 URL을 사용해야 합니다.
+            // Vercel 환경 변수 등을 사용해 배포 환경에서 동적으로 설정하는 것이 가장 좋습니다.
+            // 일단은 `http://localhost:3000/api`를 `window.location.origin + '/api'` 또는
+            // 실제 Netlify Functions URL로 변경해보세요.
+            
+            // **중요: 만약 백엔드가 Netlify Functions에 있다면, `BASE_URL`은 `https://unconnected.edgeone.app/.netlify/functions/server/api` 여야 합니다.**
+            // 또는 Vercel 자체 Serverless Functions를 사용한다면, `https://real-final-two.vercel.app/api` 가 됩니다.
+            // 이 부분을 `http://localhost:3000/api` 에서 실제 배포된 백엔드 URL로 변경해주세요!
+            // 아래는 예시입니다.
+            if (window.location.hostname !== 'localhost') {
+                 // Vercel에 배포된 경우, Vercel 자체 API 엔드포인트 사용 (만약 Vercel에 백엔드도 배포했다면)
+                 // 만약 Netlify Functions를 백엔드로 사용 중이라면 아래 주석을 해제하세요.
+                 // BASE_URL = 'https://unconnected.edgeone.app/.netlify/functions/server/api';
+                 // 그렇지 않다면, Vercel의 자체 Serverless Functions 경로를 사용합니다.
+                 // 이는 Vercel에 Next.js API Routes나 다른 서버리스 함수를 배포했을 때 해당됩니다.
+                 BASE_URL = window.location.origin + '/api'; // Vercel에 /api 경로로 함수가 배포된 경우
+            }
+
+            const initialDateButton = document.querySelector('.date-btn[onclick*="2025-07-18"]');
+            if (initialDateButton) {
+                initialDateButton.classList.add('active');
+            }
+            await displayActors(currentDate);
+        };
         // 날짜 선택 함수
         async function selectDate(event, date) { // async 키워드 추가
             currentDate = date;
@@ -523,12 +697,13 @@
             actorsGrid.innerHTML = '<div style="text-align: center; color: #666; font-size: 1.2em; margin: 40px 0;">배우 정보를 불러오는 중...</div>'; 
 
             try {
+                console.log(`Fetching actors from: ${BASE_URL}/actors/${date}`); // 디버깅을 위한 로그 추가
                 const response = await fetch(`${BASE_URL}/actors/${date}`);
                 if (!response.ok) {
                     // 404 Not Found일 경우 (해당 날짜 데이터 없음) 빈 배열로 처리
                     if (response.status === 404) {
-                         actorsGrid.innerHTML = '<div class="no-actors">해당 날짜에 출연하는 배우가 없습니다.</div>';
-                         return;
+                        actorsGrid.innerHTML = '<div class="no-actors">해당 날짜에 출연하는 배우가 없습니다.</div>';
+                        return;
                     }
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
