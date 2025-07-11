@@ -148,11 +148,9 @@
             return `${year}-${month}-${day}`;
         }
 
-        // BASE_URL을 정확하게 설정합니다.
-        // 백엔드가 Netlify Functions에 배포된 경우 (예시):
-        const BASE_URL = 'https://unconnected.edgeone.app/.netlify/functions/server'; 
-        // 또는 백엔드가 Vercel에 Serverless Functions로 배포된 경우:
-        // const BASE_URL = window.location.origin; // Vercel에서는 /api 경로가 자동으로 라우팅됩니다.
+        // BASE_URL은 변경하지 않습니다. 이 변수가 서버의 루트 URL을 가리킨다고 가정합니다.
+        // 예: http://localhost:3000 또는 https://your-vercel-app.vercel.app
+        const BASE_URL = 'http://localhost:3000'; // 이 값을 변경하지 않는다는 전제 하에 작성됨
 
         // 초기 데이터 (실제 데이터에 맞게 수정)
         // 이 데이터는 initializeServerData 함수가 POST 요청을 보낼 때 사용됩니다.
@@ -170,6 +168,7 @@
         async function initializeServerData() {
             try {
                 console.log('초기 데이터 초기화를 시도합니다.');
+                // server.js의 라우트와 일치하도록 /api/init-data 경로를 추가
                 const response = await fetch(`${BASE_URL}/api/init-data`, {
                     method: 'POST',
                     headers: {
@@ -199,7 +198,8 @@
             try {
                 const currentDate = getCurrentDate(); // 현재 날짜 가져오기
                 console.log(`배우 정보를 로드합니다. 날짜: ${currentDate}`);
-                const response = await fetch(`${BASE_URL}/api/actors/${currentDate}`); // 특정 날짜 엔드포인트 사용
+                // server.js의 라우트와 일치하도록 /api/actors/:date 경로를 추가
+                const response = await fetch(`${BASE_URL}/api/actors/${currentDate}`); 
 
                 if (!response.ok) {
                     const errorText = await response.text();
@@ -253,6 +253,7 @@
                         const text = form.querySelector('textarea').value;
 
                         try {
+                            // server.js의 라우트와 일치하도록 /api/actors/:date/:actorId/messages 경로를 추가
                             const response = await fetch(`${BASE_URL}/api/actors/${currentDate}/${actorId}/messages`, {
                                 method: 'POST',
                                 headers: {
